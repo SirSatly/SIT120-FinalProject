@@ -5,6 +5,7 @@
     <input v-model="dictionary.secondLanguage" placeholder="enter second language">
     <textarea v-model="dictionary.discription" placeholder="enter discription"></textarea>
     <button @click="saveEdits">Save Dictionary</button>
+    <button @click="addWord">Add Word</button>
     <DictionaryDisplay :words="dictionary.words" @activate="activateOverlay" />
     <EditOverlay v-if="overlayActive" v-model="dictionary.words[overlayDataPos]" @deactivate="deactivateOverlay" />
   </div>
@@ -37,10 +38,23 @@ import EditOverlay from '@/components/EditOverlay.vue';
         this.overlayActive = false;
         this.overlayDataPos = -1;
       },
+      addWord()
+      {
+        var newWord = new Word();
+        this.dictionary.words.push(newWord);
+        this.activateOverlay(newWord)
+      },
       saveEdits()
       {
         this.$parent.json = JSON.stringify(this.dictionary)
       }
     }
+  }
+
+  function Word()
+  {
+    this.word = "New Word";
+    this.notes = "";
+    this.translations = [];
   }
 </script>

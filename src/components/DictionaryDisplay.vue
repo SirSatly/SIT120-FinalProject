@@ -3,7 +3,7 @@
     <section id="dictionaryDisplay">
 
         <!-- Search box to find word in the dictionary -->
-        <input id="dictionarySearch" placeholder="Search:">
+        <input id="dictionarySearch" placeholder="Search:" v-model="searchQuery">
 
         <!-- Filter dropdown to filter the dictionary -->
         <select id="dictionaryFilters">
@@ -15,7 +15,7 @@
         </select>
 
         <!-- Div which contains all the words in the dictionary -->
-        <div id="dictionary" v-for="word in words" :key="word.word"> 
+        <div id="dictionary" v-for="word in filteredWords" :key="word.word"> 
             <div class="word" @click="$emit('activate', word)">{{word.word}}</div>
         </div>
     </section>
@@ -25,7 +25,38 @@
 export default {
     props: {
         words: Array
+    },
+    data() {
+        return {
+            searchQuery: ""
+        }
+    },
+    computed: {
+        filteredWords() {
+            var filteredWords = this.words.filter((word) => { return word.word.includes(this.searchQuery); });
+            filteredWords = filteredWords.concat(this.words.filter((word) => { return translationFilter(word, this.searchQuery, filteredWords); }));
+            filteredWords = filteredWords.concat(this.words.filter((word) => { return transcriptionFilter(word, this.searchQuery, filteredWords); }));
+            return filteredWords;
+        }
     }
+}
+
+function translationFilter(word, searchQuery, filteredWords)
+{
+    if (!filteredWords.includes(word))
+    {
+        return word.translations.some(translation => { return translation.translation.includes(searchQuery)});
+    }
+    return false;
+}
+
+function transcriptionFilter(word, searchQuery, filteredWords)
+{
+    if (!filteredWords.includes(word))
+    {
+        return word.translations.some(translation => { return translation.transcription.includes(searchQuery)});
+    }
+    return false;
 }
 </script>
 
