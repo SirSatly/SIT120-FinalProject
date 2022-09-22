@@ -1,5 +1,5 @@
 <template>
   <div class="home">
-    <h1>I am the home page</h1>
+    <h1>Welcome to Babbilon</h1>
   </div>
 </template>

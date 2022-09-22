@@ -22,26 +22,19 @@
         {
           var dictionary;
 
-          if (this.json != '{}')
+          if (localStorage.getItem(this.$route.params.id))
           {
-            dictionary = JSON.parse(this.json);
+            dictionary = JSON.parse(localStorage.getItem(this.$route.params.id));
           }
           else 
           {
             dictionary = {
-              name: this.$route.params.id,
-              firstLanguage: 'English',
-              secondLanguage: 'Russian',
-              discription: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin diam justo, sagittis vitae elementum a, volutpat at purus. Etiam ornare libero eu orci tempus, ut ullamcorper leo mattis. Phasellus tincidunt neque nisl, semper luctus nibh pellentesque ac.',
+              name: '',
+              firstLanguage: '',
+              secondLanguage: '',
+              discription: '',
               words: []
             }
-
-            dictionary.words.push({word: "hello", notes: "Example notes", translations: []})
-            dictionary.words.push({word: "goodbye", notes: "", translations: []})
-            dictionary.words.push({word: "thanks", notes: "", translations: []})
-            
-            dictionary.words[0].translations.push({title: "test", translation: "asdfg", transcription: "qwert"});
-            dictionary.words[0].translations.push({title: "test2", translation: "", transcription: "uytfv"});
           }
           return dictionary;
 

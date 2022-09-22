@@ -8,6 +8,7 @@
     <button @click="addWord">Add Word</button>
     <DictionaryDisplay :words="dictionary.words" @activate="activateOverlay" />
     <EditOverlay v-if="overlayActive" v-model="dictionary.words[overlayDataPos]" @deactivate="deactivateOverlay" />
+    <p>{{$parent.json}}</p>>
   </div>
 </template>
 
@@ -47,6 +48,13 @@ import EditOverlay from '@/components/EditOverlay.vue';
       saveEdits()
       {
         this.$parent.json = JSON.stringify(this.dictionary)
+        localStorage.setItem(this.$route.params.id, this.$parent.json);
+        if (!this.$root.fullList.some((x) => {return x.id == this.$route.params.id }))
+        {
+          let dictInfo = new DictionaryInfo(this.$route.params.id,"User", this.dictionary)
+          this.$root.fullList.push(dictInfo)
+          this.$root.savedList.push(dictInfo)
+        }
       }
     }
   }
@@ -56,5 +64,14 @@ import EditOverlay from '@/components/EditOverlay.vue';
     this.word = "New Word";
     this.notes = "";
     this.translations = [];
+  }
+
+  function DictionaryInfo(id, creater, dictionary)
+  {
+    this.id = id;
+    this.name = dictionary.name;
+    this.creater = creater;
+    this.firstLanguage = dictionary.firstLanguage;
+    this.secondLanguage = dictionary.secondLanguage;
   }
 </script>

@@ -22,6 +22,4 @@ body {
   background-color: #f5f3dc;
   padding-bottom: 20px;
 }
-
-
 </style>
