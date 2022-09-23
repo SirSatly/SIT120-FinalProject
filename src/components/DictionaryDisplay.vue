@@ -5,15 +5,6 @@
         <!-- Search box to find word in the dictionary -->
         <input id="dictionarySearch" placeholder="Search:" v-model="searchQuery">
 
-        <!-- Filter dropdown to filter the dictionary -->
-        <select id="dictionaryFilters">
-            <option>No filters</option>
-            <option>Nouns</option>
-            <option>Verbs</option>
-            <option>Adjectives</option>
-            <option>Adverbs</option>
-        </select>
-
         <!-- Div which contains all the words in the dictionary -->
         <div id="dictionary" v-for="word in filteredWords" :key="word.word"> 
             <div class="word" @click="$emit('activate', word)">{{word.word}}</div>

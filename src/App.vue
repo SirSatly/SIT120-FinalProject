@@ -22,4 +22,9 @@ body {
   background-color: #f5f3dc;
   padding-bottom: 20px;
 }
+
+button {
+  padding: 5px;
+  font-weight: bold;
+}
 </style>

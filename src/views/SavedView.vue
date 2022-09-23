@@ -1,6 +1,7 @@
 <template>
   <div class="saved">
-    <router-link :to="{path: '/' + newDictionaryId + '/edit'}">Create new Dictionary</router-link>
+    <router-link :to="{path: '/' + newDictionaryId + '/edit'}"><button>Create new Dictionary</button></router-link>
+    <h1>Your Dictionaries</h1> 
     <SavedDisplay :displayList="$root.savedList"></SavedDisplay>
   </div>
 </template>
@@ -28,3 +29,10 @@ import SavedDisplay from '@/components/SavedDisplay.vue';
     }
 }
 </script>
+
+<style>
+  .saved button {
+    margin: 20px;
+    float: right;
+  }
+</style>

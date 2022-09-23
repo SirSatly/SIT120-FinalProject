@@ -38,3 +38,12 @@
       }
   }
   </script>
+
+<style>
+  .search {
+    background-color: rgb(46, 46, 143);
+    margin-top: 20px;
+    border-radius: 20px;
+    padding: 10px;
+  }
+</style>

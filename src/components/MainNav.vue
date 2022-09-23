@@ -3,11 +3,11 @@
     <div id="mainNav">
         <router-link to="/"><img id="headerImage" src="@/assets/title.png"></router-link>
 
-        <p id="headerLinks">
+        <div id="headerLinks">
             <router-link to="/profile">Profile <img id="profileImage" src="@/assets/profile.png"></router-link>
             <router-link to="/saved">Saved</router-link>
             <router-link to="/search">Search</router-link>
-        </p>
+        </div>
     </div>
 </template>
 

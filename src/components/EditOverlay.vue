@@ -2,18 +2,19 @@
     <div id="viewOverlay">
         <div id="overlayText"> 
             <div id="overlayExit" @click="$emit('deactivate')">×</div>  
-            <input v-model.lazy="word.word">
+            <input v-model.lazy="word.word" style="margin-top: 20px">
             <br>
 
             <div v-for="translation in word.translations" :key="translation.title">
-                <h2><input v-model.lazy="translation.title"></h2> 
-                <button @click="deleteTranslation(translation)">Delete Translation</button>
+                <br>
+                <h2><input v-model.lazy="translation.title" placeholder="translation title"></h2> 
                 <p><b>Translation: </b><input v-model.lazy="translation.translation"></p>
                 <p><b>Transcription: </b><input v-model.lazy="translation.transcription"></p>
-                <br>
+                <button @click="deleteTranslation(translation)">Delete Translation</button>
             </div>
 
             <div>
+                <br>
                 <h2>Notes</h2>
                 <p><input v-model.lazy="word.notes"></p>
             </div>
@@ -34,7 +35,7 @@
         },
         methods: {
             add() {
-                this.word.translations.push({})
+                this.word.translations.push({translation: "", transcription: ""})
             },
             save() {
                 this.$emit('input', this.word)
@@ -66,17 +67,6 @@
         background-color: rgba(45, 45, 34, 0.5);
         z-index: 2;
         cursor: pointer;
-    }
-
-    #overlayText
-    {
-        width: 50vw;
-        height: 75vh;
-        margin-top: 13vh;
-        margin-left: 25vw;
-        background-color: #f5f3dc;
-        text-align: center;
-        overflow: scroll;
     }
 
     #overlayExit

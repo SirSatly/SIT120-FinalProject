@@ -4,7 +4,7 @@
       <div id="dictionaryNav">
         <router-link to="./">Dictionary</router-link>
         <router-link to="./cards">Flashcards</router-link>
-        <router-link to="./edit" :is="canEdit ? 'router-link' : 'span'">Edit</router-link>
+        <router-link to="./edit" v-if="canEdit">Edit</router-link>
       </div>
     </nav>
     <router-view/>
