@@ -1,7 +1,7 @@
 <template>
   <div class="saved">
     <router-link :to="{path: '/' + newDictionaryId + '/edit'}">Create new Dictionary</router-link>
-    <SavedDisplay :displayList="testList"></SavedDisplay>
+    <SavedDisplay :displayList="$root.savedList"></SavedDisplay>
   </div>
 </template>
 
@@ -15,9 +15,6 @@ import SavedDisplay from '@/components/SavedDisplay.vue';
       }
     },
     computed: {
-      testList() {
-          return [this.testinfo, this.testinfo, this.testinfo, this.testinfo, this.testinfo]
-      },
       newDictionaryId()
       {
         let id;

@@ -15,20 +15,26 @@ new Vue({
     }
   },
   watch: {
-    fullList(newValue)
-    {
-      localStorage.setItem('fullList', newValue);
+    fullList: {
+      handler(newValue)
+      {
+        localStorage.setItem('fullList', JSON.stringify(newValue));
+      },
+      deep: true
     },
-    savedList(newValue)
-    {
-      localStorage.setItem('savedList', newValue);
+    savedList: {
+      handler(newValue)
+      {
+        localStorage.setItem('savedList', JSON.stringify(newValue));
+      },
+      deep: true
     }
   },
   mounted() {
-    if (localStorage.getItem('0'))
+    if (localStorage.getItem('fullList'))
     {
-      this.fullList = localStorage.getItem('fullList');
-      this.savedList = localStorage.getItem('savedList');
+      this.fullList = JSON.parse(localStorage.getItem('fullList'));
+      this.savedList = JSON.parse(localStorage.getItem('savedList'));
     }
     else 
     {

@@ -6,8 +6,9 @@
     <textarea v-model="dictionary.discription" placeholder="enter discription"></textarea>
     <button @click="saveEdits">Save Dictionary</button>
     <button @click="addWord">Add Word</button>
+    <button @click="deleteDictionary">Delete Dictionary</button>
     <DictionaryDisplay :words="dictionary.words" @activate="activateOverlay" />
-    <EditOverlay v-if="overlayActive" v-model="dictionary.words[overlayDataPos]" @deactivate="deactivateOverlay" />
+    <EditOverlay v-if="overlayActive" v-model="dictionary.words[overlayDataPos]" @deactivate="deactivateOverlay" @delete="deleteWord" />
     <p>{{$parent.json}}</p>>
   </div>
 </template>
@@ -15,6 +16,7 @@
 <script>
 import DictionaryDisplay from '@/components/DictionaryDisplay.vue';
 import EditOverlay from '@/components/EditOverlay.vue';
+import router from '@/router';
   export default {
     name: 'EditView',
     components: {
@@ -41,7 +43,7 @@ import EditOverlay from '@/components/EditOverlay.vue';
       },
       addWord()
       {
-        var newWord = new Word();
+        let newWord = new Word();
         this.dictionary.words.push(newWord);
         this.activateOverlay(newWord)
       },
@@ -55,6 +57,19 @@ import EditOverlay from '@/components/EditOverlay.vue';
           this.$root.fullList.push(dictInfo)
           this.$root.savedList.push(dictInfo)
         }
+      },
+      deleteDictionary()
+      {
+        if (confirm("Are you sure you want to delete this Dictionary. It will be gone forever"))
+        {
+          localStorage.removeItem(this.$route.params.id)
+          this.$root.fullList.splice(this.$root.fullList.find((item) => {return item.id == this.$route.params.id}), 1)
+          this.$root.savedList.splice(this.$root.fullList.find((item) => {return item.id == this.$route.params.id}), 1)
+          router.push('/saved')
+        }
+      },
+      deleteWord(word) {
+        this.dictionary.words.splice(this.dictionary.words.indexOf(word), 1)
       }
     }
   }

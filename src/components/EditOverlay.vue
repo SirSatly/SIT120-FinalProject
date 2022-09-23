@@ -6,7 +6,8 @@
             <br>
 
             <div v-for="translation in word.translations" :key="translation.title">
-                <h2><input v-model.lazy="translation.title"></h2>
+                <h2><input v-model.lazy="translation.title"></h2> 
+                <button @click="deleteTranslation(translation)">Delete Translation</button>
                 <p><b>Translation: </b><input v-model.lazy="translation.translation"></p>
                 <p><b>Transcription: </b><input v-model.lazy="translation.transcription"></p>
                 <br>
@@ -17,6 +18,7 @@
                 <p><input v-model.lazy="word.notes"></p>
             </div>
             <button @click="add">Add Translation</button>
+            <button @click="deleteWord">Delete Word</button>
             <button @click="save">Save</button>
         </div>
     </div>
@@ -36,6 +38,16 @@
             },
             save() {
                 this.$emit('input', this.word)
+            },
+            deleteTranslation(translation) {
+                this.word.translations.splice(this.word.translations.indexOf(translation), 1);
+            },
+            deleteWord()
+            {
+                if (confirm("Are you sure you want to delete this word from the dictionary")) {
+                    this.$emit('deactivate')
+                    this.$emit('delete', this.word)
+                }
             }
         }
     }
